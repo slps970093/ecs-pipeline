@@ -3,7 +3,7 @@ resource "aws_security_group" "app_sg" {
   name        = "${var.cluster_name}-app-sg"
   description = "Default security group to allow inbound/outbound from the VPC"
   vpc_id      = "${aws_vpc.cluster_vpc.id}"
-  depends_on  = ["aws_vpc.cluster_vpc"]
+  depends_on  = [aws_vpc.cluster_vpc]
 
   ingress {
     from_port = "0"
@@ -19,7 +19,7 @@ resource "aws_security_group" "app_sg" {
     self      = "true"
   }
 
-  tags {
+  tags = {
     Environment = "${var.cluster_name}"
   }
 }
@@ -51,7 +51,7 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.cluster_name}-alb-sg"
   }
 }
@@ -76,7 +76,7 @@ resource "aws_security_group" "ecs_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name        = "${var.cluster_name}-ecs-service-sg"
     Environment = "${var.cluster_name}"
   }
